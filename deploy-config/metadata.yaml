@@ -1,0 +1,14 @@
+# DataRobot Custom Application Runtime Parameters
+# These parameters can be configured in the DataRobot UI
+
+runtimeParameterDefinitions:
+  # Application settings
+  - fieldName: APP_TITLE
+    type: string
+    defaultValue: "Hello World"
+    description: "Application title displayed in the UI"
+
+  - fieldName: DEBUG
+    type: boolean
+    defaultValue: false
+    description: "Enable debug mode for additional logging"
