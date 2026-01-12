@@ -95,7 +95,7 @@ def build_frontend() -> None:
 def copy_backend() -> None:
     """Copy backend Python files to deploy directory."""
     print("\n[3/5] Copying backend files...")
-    backend_files = ["main.py", "config.py", "requirements.txt"]
+    backend_files = ["main.py", "config.py", "agent_client.py", "llm_client.py", "requirements.txt"]
     for filename in backend_files:
         src = BACKEND_DIR / filename
         if src.exists():

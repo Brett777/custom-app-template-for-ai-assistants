@@ -62,3 +62,8 @@ class Settings:
 
         # Application-specific settings
         self.app_title: str = get_env("APP_TITLE", "Hello World")
+
+        # Agent Deployment settings
+        self.agent_deployment_id: str = get_env("AGENT_DEPLOYMENT_ID", "")
+        self.datarobot_api_token: str = get_env("DATAROBOT_API_TOKEN", "")
+        self.datarobot_endpoint: str = get_env("DATAROBOT_ENDPOINT", "https://app.datarobot.com")

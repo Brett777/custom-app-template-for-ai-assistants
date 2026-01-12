@@ -3,6 +3,7 @@ import { apiUrl } from '@/lib/basePath'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { ChatBot } from '@/components/chat/ChatBot'
 
 interface AppConfig {
   appTitle: string
@@ -14,11 +15,14 @@ interface HelloResponse {
   timestamp: string
 }
 
+type View = 'home' | 'chat'
+
 function App() {
   const [config, setConfig] = useState<AppConfig | null>(null)
   const [hello, setHello] = useState<HelloResponse | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [view, setView] = useState<View>('home')
 
   useEffect(() => {
     // Fetch configuration on mount
@@ -63,63 +67,91 @@ function App() {
           )}
         </div>
 
-        {/* Main Card */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Welcome</CardTitle>
-            <CardDescription>
-              This is a template for building DataRobot Custom Applications
-              with FastAPI backend and React frontend.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Button onClick={handleHelloClick}>
-              Say Hello
-            </Button>
+        {/* Navigation */}
+        <div className="flex justify-center gap-2">
+          <Button
+            variant={view === 'home' ? 'default' : 'outline'}
+            onClick={() => setView('home')}
+          >
+            Home
+          </Button>
+          <Button
+            variant={view === 'chat' ? 'default' : 'outline'}
+            onClick={() => setView('chat')}
+          >
+            Agent Chat
+          </Button>
+        </div>
 
-            {hello && (
-              <div className="p-4 bg-muted rounded-lg">
-                <p className="font-medium">{hello.message}</p>
-                <p className="text-sm text-muted-foreground mt-1">
-                  {new Date(hello.timestamp).toLocaleString()}
-                </p>
-              </div>
-            )}
+        {/* Chat View */}
+        {view === 'chat' && <ChatBot />}
 
-            {error && (
-              <div className="p-4 bg-destructive/10 text-destructive rounded-lg">
-                <p>Error: {error}</p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+        {/* Home View */}
+        {view === 'home' && (
+          <>
+            {/* Main Card */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Welcome</CardTitle>
+                <CardDescription>
+                  This is a template for building DataRobot Custom Applications
+                  with FastAPI backend and React frontend.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <Button onClick={handleHelloClick}>
+                  Say Hello
+                </Button>
 
-        {/* Features Card */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Features</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2 text-sm">
-              <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-primary rounded-full" />
-                FastAPI backend with automatic API documentation
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-primary rounded-full" />
-                React + TypeScript + Vite for fast development
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-primary rounded-full" />
-                Tailwind CSS + shadcn/ui for beautiful UI
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-primary rounded-full" />
-                DataRobot-ready with proper path handling
-              </li>
-            </ul>
-          </CardContent>
-        </Card>
+                {hello && (
+                  <div className="p-4 bg-muted rounded-lg">
+                    <p className="font-medium">{hello.message}</p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {new Date(hello.timestamp).toLocaleString()}
+                    </p>
+                  </div>
+                )}
+
+                {error && (
+                  <div className="p-4 bg-destructive/10 text-destructive rounded-lg">
+                    <p>Error: {error}</p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Features Card */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Features</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-primary rounded-full" />
+                    FastAPI backend with automatic API documentation
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-primary rounded-full" />
+                    React + TypeScript + Vite for fast development
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-primary rounded-full" />
+                    Tailwind CSS + shadcn/ui for beautiful UI
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-primary rounded-full" />
+                    DataRobot-ready with proper path handling
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-primary rounded-full" />
+                    Agent Deployment integration for AI-powered chat
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </>
+        )}
       </div>
     </div>
   )

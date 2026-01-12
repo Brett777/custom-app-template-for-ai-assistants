@@ -12,3 +12,21 @@ runtimeParameterDefinitions:
     type: boolean
     defaultValue: false
     description: "Enable debug mode for additional logging"
+
+  # Agent Deployment settings
+  # Configure these to connect to a DataRobot Agent Deployment
+  - fieldName: AGENT_DEPLOYMENT_ID
+    type: string
+    defaultValue: ""
+    description: "DataRobot Agent Deployment ID for chat integration"
+
+  - fieldName: DATAROBOT_API_TOKEN
+    type: credential
+    description: "DataRobot API Token for agent authentication"
+    credentialType:
+      - api_token
+
+  - fieldName: DATAROBOT_ENDPOINT
+    type: string
+    defaultValue: "https://app.datarobot.com"
+    description: "DataRobot API endpoint URL"
